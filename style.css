@@ -1,0 +1,73 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+header {
+    text-align: center;
+    background-color: #000;
+    color: #fff;
+    padding: 20px;
+}
+
+h1 {
+    font-size: 2.5em;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+main {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    font-size: 2em;
+    margin-top: 30px;
+}
+
+p {
+    font-size: 1.2em;
+    line-height: 1.6;
+}
+
+blockquote {
+    font-style: italic;
+    background-color: #f9f9f9;
+    border-left: 5px solid #ccc;
+    padding: 10px;
+    margin: 20px 0;
+}
+
+.intro {
+    background-color: #e0f7fa;
+    padding: 20px;
+    border-radius: 8px;
+}
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%; /* Đảm bảo hình ảnh không vượt quá chiều rộng của container */
+    height: auto; /* Giữ tỷ lệ gốc của hình ảnh */
+}
