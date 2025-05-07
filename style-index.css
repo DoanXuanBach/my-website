@@ -1,0 +1,82 @@
+body {
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+/* Header và Navigation */
+header {
+  text-align: center;
+  background-color: #000;
+  color: #fff;
+  padding: 20px;
+}
+
+h1 {
+  font-size: 2.5em;
+  font-family: 'Merriweather', serif;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+nav ul li {
+  display: inline;
+  margin-right: 20px;
+}
+
+nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* Main content */
+main {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+}
+
+/* Hình ảnh căn giữa */
+img {
+  display: block;
+  margin: 20px auto;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Các khối văn bản theo từng font */
+.section-merriweather {
+  font-family: 'Merriweather', serif;
+}
+
+.section-roboto {
+  font-family: 'Roboto', sans-serif;
+}
+
+.section-cormorant {
+  font-family: 'Cormorant Garamond', serif;
+}
+
+h2 {
+  font-size: 2em;
+  margin-top: 30px;
+}
+
+p {
+  font-size: 1.2em;
+  line-height: 1.6;
+}
+
+blockquote {
+  font-style: italic;
+  background-color: #f9f9f9;
+  border-left: 5px solid #ccc;
+  padding: 10px;
+  margin: 20px 0;
+}
