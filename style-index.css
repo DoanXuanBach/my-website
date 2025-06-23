@@ -65,18 +65,18 @@ header h1 {
 }
 
 /* Индивидуальные шрифты для каждой страницы */
-body.mono-photo {
+body.index {
   font-family: 'Helvetica Neue', sans-serif;
 }
 
-body.color-photo {
+body.post2 {
   font-family: 'Georgia', serif;
 }
 
-body.color-graphic {
+body.post3 {
   font-family: 'Playfair Display', serif;
 }
 
-body.mono-graphic {
+body.post4 {
   font-family: 'Fira Sans', sans-serif;
 }
