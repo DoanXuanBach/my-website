@@ -1,29 +1,946 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <title>Цвет как ощущение</title>
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taylor Swift | The Eras Tour</title>
+    <!-- Подключение всех необходимых шрифтов -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Playfair+Display:wght@400;700&family=Libre+Baskerville:wght@400;700&family=Caveat:wght@400;700&family=Dancing+Script:wght@400;700&family=Pacifico&family=Courier+Prime:wght@400;700&family=Parisienne&family=Special+Elite&display=swap" rel="stylesheet">
+    <style>
+        /* Основные стили и переменные */
+        :root {
+            /* Цвета для эр */
+            --debut: #4CAF50;
+            --fearless: #D4AF37;
+            --red: #E32636;
+            --nineteen89: #5B9BD5;
+            --reputation: #1A1A1A;
+            --lover: #FFB6C1;
+            --folklore: #708090;
+            --evermore: #2E8B57;
+            --midnights: #191970;
+            
+            /* Основные цвета */
+            --text-dark: #333;
+            --text-light: #fff;
+            --bg-light: #f9f9f9;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+            scroll-behavior: smooth;
+        }
+
+        /* Навигация */
+        nav {
+            background: linear-gradient(90deg, 
+                var(--debut), var(--fearless), var(--red), 
+                var(--nineteen89), var(--reputation), var(--lover), 
+                var(--folklore), var(--evermore), var(--midnights));
+            padding: 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            padding: 1rem;
+            background: rgba(0,0,0,0.9);
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover, nav a.active {
+            background-color: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Шапка */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1635776062360-af423602aff3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: var(--text-light);
+            padding: 2rem;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
+            animation: fadeInDown 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.8rem;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            font-weight: 300;
+            animation: fadeIn 1.5s ease;
+        }
+
+        .hero .handwritten {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.2rem;
+            color: #fff;
+            margin-top: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .scroll-down {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 2rem;
+            animation: bounce 2s infinite;
+            cursor: pointer;
+        }
+
+        /* Основное содержимое */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Общие стили для секций эр */
+        .era-section {
+            padding: 6rem 0;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .era-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .era-section h2 {
+            font-size: 4rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .era-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background-color: currentColor;
+        }
+
+        .era-content {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+            margin-bottom: 4rem;
+        }
+
+        @media (max-width: 992px) {
+            .era-content {
+                flex-direction: column;
+            }
+        }
+
+        .era-text {
+            flex: 1;
+        }
+
+        .era-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.5s ease;
+        }
+
+        .era-image:hover {
+            transform: scale(1.03);
+        }
+
+        .era-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Стили для текстовых элементов */
+        .handwritten {
+            font-family: 'Caveat', cursive;
+            font-size: 1.4rem;
+            line-height: 1.8;
+        }
+
+        .lyrics {
+            font-family: 'Parisienne', cursive;
+            font-size: 1.6rem;
+            line-height: 1.8;
+            font-style: italic;
+            transition: color 0.5s ease;
+            cursor: pointer;
+        }
+
+        .lyrics:hover {
+            color: inherit !important;
+        }
+
+        .quote {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            color: currentColor;
+            margin: 2rem 0;
+            padding-left: 2rem;
+            border-left: 3px solid currentColor;
+        }
+
+        .typewriter-text {
+            font-family: 'Special Elite', cursive;
+            overflow: hidden;
+            border-right: 3px solid;
+            white-space: nowrap;
+            margin: 0 auto;
+            letter-spacing: 2px;
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+
+        /* Анимации */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInDown {
+            from { 
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: currentColor; }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0) translateX(-50%);
+            }
+            40% {
+                transform: translateY(-20px) translateX(-50%);
+            }
+            60% {
+                transform: translateY(-10px) translateX(-50%);
+            }
+        }
+
+        /* Стили для конкретных эр */
+
+        /* Debut Era - Кантри стиль */
+        .debut {
+            background-color: var(--debut);
+            color: var(--text-light);
+        }
+
+        .debut h2 {
+            font-family: 'Libre Baskerville', serif;
+            letter-spacing: 1px;
+        }
+
+        .debut .handwritten {
+            font-family: 'Caveat', cursive;
+            color: #fff8e1;
+        }
+
+        .debut .lyrics {
+            font-family: 'Parisienne', cursive;
+            color: #e0f7fa;
+        }
+
+        /* Fearless Era - Романтичный золотой стиль */
+        .fearless {
+            background-color: var(--fearless);
+            color: var(--text-light);
+        }
+
+        .fearless h2 {
+            font-family: 'Playfair Display', serif;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .fearless .quote {
+            font-family: 'Dancing Script', cursive;
+            color: #fffde7;
+        }
+
+        /* Red Era - Страстный красный стиль */
+        .red {
+            background-color: var(--red);
+            color: var(--text-light);
+        }
+
+        .red h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .red .lyrics {
+            font-family: 'Parisienne', cursive;
+            color: #ffebee;
+        }
+
+        /* 1989 Era - Ретро поп стиль */
+        .nineteen89 {
+            background-color: var(--nineteen89);
+            color: var(--text-light);
+        }
+
+        .nineteen89 h2 {
+            font-family: 'Pacifico', cursive;
+            font-weight: 400;
+        }
+
+        .nineteen89 .handwritten {
+            font-family: 'Dancing Script', cursive;
+            color: #e3f2fd;
+        }
+
+        /* Reputation Era - Готический стиль */
+        .reputation {
+            background-color: var(--reputation);
+            color: var(--text-light);
+        }
+
+        .reputation h2 {
+            font-family: 'Courier Prime', monospace;
+            text-transform: lowercase;
+            letter-spacing: 3px;
+        }
+
+        .reputation .typewriter-text {
+            font-family: 'Special Elite', cursive;
+            color: #e0e0e0;
+        }
+
+        /* Lover Era - Романтичный розовый стиль */
+        .lover {
+            background-color: var(--lover);
+            color: var(--text-dark);
+        }
+
+        .lover h2 {
+            font-family: 'Parisienne', cursive;
+            font-size: 4.5rem;
+            color: #d81b60;
+        }
+
+        .lover .quote {
+            font-family: 'Dancing Script', cursive;
+            color: #880e4f;
+            border-left-color: #880e4f;
+        }
+
+        /* Folklore Era - Рукописный инди стиль */
+        .folklore {
+            background-color: var(--folklore);
+            color: var(--text-light);
+        }
+
+        .folklore h2 {
+            font-family: 'Caveat', cursive;
+            font-size: 4.2rem;
+            letter-spacing: 1px;
+        }
+
+        .folklore .handwritten {
+            font-family: 'Caveat', cursive;
+            font-size: 1.6rem;
+            color: #eceff1;
+        }
+
+        /* Evermore Era - Винтажный лесной стиль */
+        .evermore {
+            background-color: var(--evermore);
+            color: var(--text-light);
+        }
+
+        .evermore h2 {
+            font-family: 'Libre Baskerville', serif;
+            font-style: italic;
+        }
+
+        .evermore .lyrics {
+            font-family: 'Parisienne', cursive;
+            color: #e8f5e9;
+        }
+
+        /* Midnights Era - Тайный ночной стиль */
+        .midnights {
+            background-color: var(--midnights);
+            color: var(--text-light);
+        }
+
+        .midnights h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .midnights .typewriter-text {
+            font-family: 'Special Elite', cursive;
+            color: #bbdefb;
+        }
+
+        /* Подвал */
+        footer {
+            background-color: #222;
+            color: var(--text-light);
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--lover);
+        }
+
+        .copyright {
+            margin-top: 2rem;
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.4rem;
+            }
+            
+            .era-section h2 {
+                font-size: 3rem;
+            }
+            
+            .lover h2, .folklore h2 {
+                font-size: 3.5rem;
+            }
+            
+            nav ul {
+                gap: 0.8rem;
+            }
+            
+            nav a {
+                padding: 0.5rem 1rem;
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .hero .handwritten {
+                font-size: 1.8rem;
+            }
+            
+            .era-section h2 {
+                font-size: 2.5rem;
+            }
+            
+            .lover h2, .folklore h2 {
+                font-size: 3rem;
+            }
+            
+            .quote, .lyrics {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
-<nav>
-  <ul>
-    <li><a href="index.html">Цвет как ощущение</a></li>
-    <li><a href="post2.html">Цвет в природе</a></li>
-    <li><a href="post3.html">Цвет и культура</a></li>
-    <li><a href="post4.html">Цвет в языке</a></li>
-  </ul>
-</nav>
-<header><h1>Цвет как ощущение</h1></header>
-<main>
-  <section class="text">
-    <p>Цвет может быть ощутим даже там, где его нет... [текст выше]</p>
-  </section>
-  <section class="gallery">
-    <img src="images/photo1.jpg" alt="Портрет">
-    <img src="images/photo2.jpg" alt="Туман">
-    <img src="images/photo3.jpg" alt="Текстура">
-  </section>
-</main>
+    <!-- Навигация -->
+    <nav>
+        <ul>
+            <li><a href="#home" class="active">Главная</a></li>
+            <li><a href="#debut">Debut</a></li>
+            <li><a href="#fearless">Fearless</a></li>
+            <li><a href="#red">Red</a></li>
+            <li><a href="#1989">1989</a></li>
+            <li><a href="#reputation">Reputation</a></li>
+            <li><a href="#lover">Lover</a></li>
+            <li><a href="#folklore">Folklore</a></li>
+            <li><a href="#evermore">Evermore</a></li>
+            <li><a href="#midnights">Midnights</a></li>
+        </ul>
+    </nav>
+
+    <!-- Герой -->
+    <section id="home" class="hero">
+        <h1 class="typewriter-text">Taylor Swift</h1>
+        <p>The Eras Tour: Путешествие по музыкальным эпохам</p>
+        <div class="handwritten">"Музыка - это зеркало моей души"</div>
+        <div class="scroll-down" onclick="scrollToNextSection()">↓</div>
+    </section>
+
+    <!-- Debut Era -->
+    <section id="debut" class="era-section debut">
+        <div class="container">
+            <h2>Taylor Swift (Debut)</h2>
+            <div class="era-content">
+                <div class="era-text">
+                    <h3>Начало легенды</h3>
+                    <p>Дебютный альбом 16-летней Тейлор Свифт, выпущенный в 2006 году, ознаменовал появление новой звезды кантри-музыки.</p>
+                    
+                    <p class="handwritten">Я писала эти песни в своей спальне, мечтая о том дне, когда кто-то кроме моих родителей услышит их...</p>
+                    
+                    <div class="quote">
+                        "Когда ты думаешь о Тим Макгро, я надеюсь, ты вспоминаешь мою любимую песню..."
+                    </div>
+                    
+                    <h3>Кантри-корни</h3>
+                    <p>Альбом сочетает традиционные кантри-инструменты с искренними текстами о подростковой жизни.</p>
+                    
+                    <p class="lyrics" data-colors="#e0f7fa,#fff8e1,#ffffff,#4CAF50">"Teardrops on my guitar, thinking 'bout the love that we could have had..."</p>
+                </div>
+                <div class="era-image">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/1/1f/Taylor_Swift_-_Taylor_Swift.png" alt="Обложка альбома Taylor Swift">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fearless Era -->
+    <section id="fearless" class="era-section fearless">
+        <div class="container">
+            <h2>Fearless</h2>
+            <div class="era-content">
+                <div class="era-image">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png" alt="Обложка альбома Fearless">
+                </div>
+                <div class="era-text">
+                    <h3>Золотой прорыв</h3>
+                    <p>Альбом 2008 года, принесший Тейлор первую славу и Grammy за "Альбом года".</p>
+                    
+                    <div class="quote">
+                        "You take my hand and drag me head first, fearless..."
+                    </div>
+                    
+                    <p class="handwritten">Впервые я почувствовала, что мои мечты становятся реальностью...</p>
+                    
+                    <h3>Романтические баллады</h3>
+                    <p>"Love Story" и "You Belong With Me" стали гимнами поколения.</p>
+                    
+                    <p class="lyrics" data-colors="#fffde7,#D4AF37,#ffffff,#000000">"Romeo, take me somewhere we can be alone..."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Red Era -->
+    <section id="red" class="era-section red">
+        <div class="container">
+            <h2>RED</h2>
+            <div class="era-content">
+                <div class="era-text">
+                    <h3>Эмоциональный ураган</h3>
+                    <p>Альбом 2012 года, где Тейлор начала экспериментировать с поп-звучанием.</p>
+                    
+                    <p class="handwritten">Этот альбом - как страницы моего дневника, написанные кровью...</p>
+                    
+                    <div class="quote">
+                        "Loving him is like driving a new Maserati down a dead-end street..."
+                    </div>
+                    
+                    <h3>От кантри к поп-музыке</h3>
+                    <p>"We Are Never Ever Getting Back Together" стал первым поп-хитом Тейлор.</p>
+                    
+                    <p class="lyrics" data-colors="#ffebee,#E32636,#ffffff,#000000">"Remembering him comes in flashbacks and echoes..."</p>
+                </div>
+                <div class="era-image">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png" alt="Обложка альбома Red">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 1989 Era -->
+    <section id="1989" class="era-section nineteen89">
+        <div class="container">
+            <h2>1989</h2>
+            <div class="era-content">
+                <div class="era-image">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/f/f6/Taylor_Swift_-_1989.png" alt="Обложка альбома 1989">
+                </div>
+                <div class="era-text">
+                    <h3>Поп-трансформация</h3>
+                    <p>Альбом 2014 года, полностью посвященный поп-музыке, названный в честь года рождения Тейлор.</p>
+                    
+                    <div class="quote">
+                        "It's a new soundtrack, I could dance to this beat..."
+                    </div>
+                    
+                    <p class="handwritten">Я решила полностью изменить свое звучание - и это было самое освобождающее чувство!</p>
+                    
+                    <h3>Синтпоп-шедевр</h3>
+                    <p>"Shake It Off", "Blank Space" и "Bad Blood" доминировали в чартах.</p>
+                    
+                    <p class="lyrics" data-colors="#e3f2fd,#5B9BD5,#ffffff,#000000">"'Cause the players gonna play, play, play, play, play..."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reputation Era -->
+    <section id="reputation" class="era-section reputation">
+        <div class="container">
+            <h2>reputation</h2>
+            <div class="era-content">
+                <div class="era-text">
+                    <h3>Темная эра</h3>
+                    <p>Альбом 2017 года, написанный в ответ на медиа-скандалы, с электронным звучанием.</p>
+                    
+                    <p class="typewriter-text">They say I did something bad... then why's it feel so good?</p>
+                    
+                    <div class="quote">
+                        "My reputation's never been worse, so you must like me for me..."
+                    </div>
+                    
+                    <h3>Электропоп-революция</h3>
+                    <p>"Look What You Made Me Do" ознаменовал новый этап в карьере Тейлор.</p>
+                    
+                    <p class="lyrics" data-colors="#e0e0e0,#1A1A1A,#ffffff,#000000">"I'm sorry, the old Taylor can't come to the phone right now..."</p>
+                </div>
+                <div class="era-image">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/f/f2/Taylor_Swift_-_Reputation.png" alt="Обложка альбома reputation">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lover Era -->
+    <section id="lover" class="era-section lover">
+        <div class="container">
+            <h2>Lover</h2>
+            <div class="era-content">
+                <div class="era-image">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/c/cd/Taylor_Swift_-_Lover.png" alt="Обложка альбома Lover">
+                </div>
+                <div class="era-text">
+                    <h3>Романтическое возрождение</h3>
+                    <p>Альбом 2019 года, вернувший светлые тона после "reputation".</p>
+                    
+                    <div class="quote">
+                        "We could leave the Christmas lights up 'til January..."
+                    </div>
+                    
+                    <p class="handwritten">Я влюбилась в любовь снова, и этот альбом - мое любовное письмо самой любви...</p>
+                    
+                    <h3>Поп-баллады</h3>
+                    <p>"Lover", "ME!" и "You Need To Calm Down" показали новую сторону Тейлор.</p>
+                    
+                    <p class="lyrics" data-colors="#880e4f,#FFB6C1,#000000,#ffffff">"I'm the only one of me, baby that's the fun of me..."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Folklore Era -->
+    <section id="folklore" class="era-section folklore">
+        <div class="container">
+            <h2>folklore</h2>
+            <div class="era-content">
+                <div class="era-text">
+                    <h3>Карантинный шедевр</h3>
+                    <p>Неожиданный альбом 2020 года, записанный в изоляции, с инди-фолк звучанием.</p>
+                    
+                    <p class="handwritten">Я писала эти песни как будто в трансе, они просто лились из меня...</p>
+                    
+                    <div class="quote">
+                        "I'm a mirrorball, I'll show you every version of yourself tonight..."
+                    </div>
+                    
+                    <h3>Литературный подход</h3>
+                    <p>Альбом представляет собой сборник историй и персонажей.</p>
+                    
+                    <p class="lyrics" data-colors="#eceff1,#708090,#ffffff,#000000">"And you know damn well, for you I would ruin myself..."</p>
+                </div>
+                <div class="era-image">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/f/f8/Taylor_Swift_-_Folklore.png" alt="Обложка альбома folklore">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Evermore Era -->
+    <section id="evermore" class="era-section evermore">
+        <div class="container">
+            <h2>evermore</h2>
+            <div class="era-content">
+                <div class="era-image">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/0/0a/Taylor_Swift_-_Evermore.png" alt="Обложка альбома evermore">
+                </div>
+                <div class="era-text">
+                    <h3>Зимняя сестра folklore</h3>
+                    <p>Альбом-компаньон, выпущенный в конце 2020 года, с более мрачным звучанием.</p>
+                    
+                    <div class="quote">
+                        "I had a feeling so peculiar, this pain wouldn't be for evermore..."
+                    </div>
+                    
+                    <p class="handwritten">Я думала, что folklore был завершен, но истории продолжали приходить ко мне...</p>
+                    
+                    <h3>Продолжение повествования</h3>
+                    <p>Альбом исследует темы потерь, размышлений и надежды.</p>
+                    
+                    <p class="lyrics" data-colors="#e8f5e9,#2E8B57,#ffffff,#000000">"Long story short, it was a bad time..."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Midnights Era -->
+    <section id="midnights" class="era-section midnights">
+        <div class="container">
+            <h2>MIDNIGHTS</h2>
+            <div class="era-content">
+                <div class="era-text">
+                    <h3>Ночные размышления</h3>
+                    <p>Альбом 2022 года, посвященный 13 бессонным ночам из жизни Тейлор.</p>
+                    
+                    <p class="typewriter-text">It's me, hi, I'm the problem, it's me...</p>
+                    
+                    <div class="quote">
+                        "You're on your own, kid, you always have been..."
+                    </div>
+                    
+                    <h3>Возвращение к поп-музыке</h3>
+                    <p>Альбом сочетает элементы электропопа и лоу-фая.</p>
+                    
+                    <p class="lyrics" data-colors="#bbdefb,#191970,#ffffff,#000000">"Karma is my boyfriend, karma is a god..."</p>
+                </div>
+                <div class="era-image">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/9/9f/Midnights_-_Taylor_Swift.png" alt="Обложка альбома Midnights">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Подвал -->
+    <footer>
+        <div class="footer-content">
+            <h3>Taylor Swift: The Eras Tour</h3>
+            <p>Фан-сайт, посвященный музыкальному путешествию Тейлор Свифт</p>
+            <div class="footer-links">
+                <a href="#home">Главная</a>
+                <a href="#debut">Debut</a>
+                <a href="#fearless">Fearless</a>
+                <a href="#red">Red</a>
+                <a href="#1989">1989</a>
+                <a href="#reputation">Reputation</a>
+                <a href="#lover">Lover</a>
+                <a href="#folklore">Folklore</a>
+                <a href="#evermore">Evermore</a>
+                <a href="#midnights">Midnights</a>
+            </div>
+            <div class="copyright">
+                © 2023 The Eras Tour | Неофициальный фан-сайт
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Анимация для навигации
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                document.querySelectorAll('nav a').forEach(item => {
+                    item.classList.remove('active');
+                });
+                this.classList.add('active');
+            });
+        });
+
+        // Плавная прокрутка
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Прокрутка вниз к следующей секции
+        function scrollToNextSection() {
+            const hero = document.querySelector('.hero');
+            const nextSection = hero.nextElementSibling;
+            nextSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Изменение навигации при прокрутке
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+
+            // Подсветка активного раздела в навигации
+            const sections = document.querySelectorAll('.era-section');
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= (sectionTop - sectionHeight / 3)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            document.querySelectorAll('nav a').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Анимация появления секций при прокрутке
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.era-section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Смена цвета текста песен при наведении
+        document.querySelectorAll('.lyrics').forEach(lyric => {
+            const colors = lyric.getAttribute('data-colors').split(',');
+            let currentColorIndex = 0;
+            
+            lyric.addEventListener('mouseenter', function() {
+                currentColorIndex = (currentColorIndex + 1) % colors.length;
+                this.style.color = colors[currentColorIndex];
+            });
+            
+            // Установить начальный цвет
+            lyric.style.color = colors[0];
+        });
+
+        // Автоматическая прокрутка цветов для текстов песен
+        function cycleLyricsColors() {
+            document.querySelectorAll('.lyrics').forEach(lyric => {
+                const colors = lyric.getAttribute('data-colors').split(',');
+                const currentColor = lyric.style.color || colors[0];
+                let currentIndex = colors.indexOf(currentColor);
+                
+                if (currentIndex === -1) currentIndex = 0;
+                
+                const nextIndex = (currentIndex + 1) % colors.length;
+                lyric.style.color = colors[nextIndex];
+            });
+        }
+
+        // Запустить автоматическую смену цветов каждые 3 секунды
+        setInterval(cycleLyricsColors, 3000);
+    </script>
 </body>
 </html>
